@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Exercise 1</title>
+</head>
+<body>
+
+<div id="exercise2"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.9/d3.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var exercise_2 = (function () {
+      var svg;
+
+        return {
+            render: function (placement, options) {
+                  svg = d3.select(placement).append('svg').attr(options).append("g");
+                
+                var data = [
+                  {x: 10.0, y: 9.14},
+                  {x: 15.0, y: 18.14},
+                  {x: 13.0, y: 28.74},
+                  {x: 49.0, y: 35.77},
+                  {x: 11.0, y: 9.26},
+                  {x: 23.0, y: 18.10},
+                  {x: 43.0, y: 16.13},
+                  {x: 65.0, y: 13.10},
+                  {x: 12.0, y: 19.13},
+                  {x: 30.0, y: 70.26},
+                  {x: 25.0, y: 40.74}
+                  ];
+
+                  svg.selectAll("circle")
+                        .data(data).enter().append("circle")
+                      .attr("r", 3)
+                      .attr("cx", function(d) {
+                          return d.x;
+                      }).attr("cy", function(d) {
+                          return d.y;
+                      }).style("fill", "#F179D1");  
+                  },
+
+            update: function update(data) {
+                      var rect = svg.selectAll("rect").data(data);
+
+                      rect.enter().append("rect")
+                          .style("fill", "blue")
+                          .attr("height", 20)
+                          .attr("width", 25)
+                          .transition('elastic')
+                             .style("fill", "#F179D1").attr("width", 10).attr("height", 10);
+
+                      rect.attr("x", function(d) { return d.x; })
+                          .attr("y", function(d) { return d.y; });
+
+                      rect.exit().attr("width", 25).transition() 
+                          .attr("width", 0)
+                          .remove();
+                  }
+            
+        }
+    })()
+    exercise_2.render("#exercise2", {'width': 500, 'height': 1000});
+    exercise_2.update([{x:30, y:60}, {x:50, y:50}]);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

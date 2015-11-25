@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Exercise 1</title>
+</head>
+<body>
+
+<div id="exercise1"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.9/d3.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var exercise_1 = (function () {
+        return {
+            render: function (placement, options) {
+                d3.select(placement).html("");
+                var svg = d3.select(placement).append('svg').attr(options).append("g");
+               
+
+                var line = d3.svg.line().interpolate("linear") // there are many different interpolators
+                    .x(function (d) {
+                    return d.x;
+                })
+                    .y(function (d) {
+                    return d.y;
+                });
+
+                svg.append("path")
+                    .attr("d", line([{x:0, y:30}, {x:40, y:100}, {x:40, y:40}, {x:70, y:70}]))
+                    .style({'fill':'orange'});
+
+
+                svg.append("path")
+                    .attr("d", line([{x:10, y:0}, {x:40, y:100}, {x:40, y:40}, {x:70, y:70}]))
+                    .style({'stroke': 'white', 'stroke-width': 1, 'stroke-linecap': 'round', 'fill':'orange'});
+
+                 svg.append("circle").style("fill", "yellow").attr("cx", 80).attr("cy", 70).attr("r", 50)
+
+                svg.append("path")
+                    .attr("d", d3.svg.symbol().size(200))
+                    .style("fill", "#27aae1")
+                    .attr("transform", "translate(70,55)");
+
+                svg.append("path")
+                    .attr("d", d3.svg.symbol().size(20))
+                    .style("fill", "black")
+                    .attr("transform", "translate(69,55)");
+
+                 svg.append("circle").style("fill", "yellow").attr("cx", 150).attr("cy", 160).attr("r", 90);
+
+
+             svg.append("path")
+                    .attr("d", line([{x:0, y:280}, {x:400, y:280}]))
+                    .style({'stroke': 'green', 'stroke-width': 5, 'stroke-linecap': 'round'});
+
+                svg.append("path")
+                    .attr("d", line([{x:150, y:250}, {x:150, y:280}]))
+                    .style({'stroke': 'orange', 'stroke-width': 10, 'stroke-linecap': 'round'});
+
+                svg.append("path")
+                    .attr("d", line([{x:150, y:280}, {x:120, y:290}]))
+                    .style({'stroke': 'orange', 'stroke-width': 10, 'stroke-linecap': 'round'});
+                svg.append("path")
+                    .attr("d", line([{x:150, y:280}, {x:170, y:290}]))
+                    .style({'stroke': 'orange', 'stroke-width': 10, 'stroke-linecap': 'round'});
+
+                
+            }
+        }
+    })()
+    exercise_1.render("#exercise1", {'width': 1000, 'height': 1000})
+</script>
+</body>
+</html>
