@@ -10,8 +10,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.9/d3.min.js" type="text/javascript"></script>
   <script type="text/javascript">
+
   var exercise_2 = (function () {
-    var svg;
 
     return {
       render: function (placement, options) {
@@ -31,49 +31,62 @@
         {x: 25.0, y: 40.74}
         ];
 
+      
+      var margin = {top: 5, right: 5, bottom: 5, left: 5};      
+      var xScale = d3.scale.log().domain(d3.extent(data, function (d) {return d.x; }))
+      .range([60, 500 - margin.left - margin.right]);
+
+      var yScale = d3.scale.linear()
+        .domain(d3.extent(data, function (d) {
+            return d.y;
+        }))
+    .range([500 - margin.top - margin.bottom, 60]);
+
         svg.selectAll("circle")
         .data(data).enter().append("circle")
-        .attr("r", 3)
-        .attr("cx", function(d) {
-          return d.x;
-        }).attr("cy", function(d) {
-          return d.y;
-        }).style("fill", "#F179D1");  
+        .attr("class", "dot")
+        .attr("cx", function (d) {
+        return xScale(d.x);
+        })
+        .attr("cy", function (d) {
+        return yScale(d.y);
+        }).attr("r", 10);
+
       },
 
-      update: function update(data) {
-        var rect = svg.selectAll("rect").data(data);
+      // update: function update(data) {
+      //   var rect = svg.selectAll("rect").data(data);
 
-        var line = d3.svg.line().interpolate("linear") 
-        .x(function (d) {
-          return d.x;
-        })
-        .y(function (d) {
-          return d.y;
-        });
-        rect.enter().append("rect")
-        .style("fill", "blue")
-        .attr("height", 20)
-        .attr("width", 25)
-        .transition('elastic')
-        .style("fill", "#F179D1").attr("width", 10).attr("height", 10)
+      //   var line = d3.svg.line().interpolate("linear") 
+      //   .x(function (d) {
+      //     return d.x;
+      //   })
+      //   .y(function (d) {
+      //     return d.y;
+      //   });
+      //   rect.enter().append("rect")
+      //   .style("fill", "blue")
+      //   .attr("height", 20)
+      //   .attr("width", 25)
+      //   .transition('elastic')
+      //   .style("fill", "#F179D1").attr("width", 10).attr("height", 10)
 
 
         
-        rect.attr("x", function(d) { return d.x; })
-        .attr("y", function(d) { return d.y; });
+      //   rect.attr("x", function(d) { return d.x; })
+      //   .attr("y", function(d) { return d.y; });
 
-        rect.exit().attr("width", 25).transition() 
-        .attr("width", 0)
-        .remove();
+      //   rect.exit().attr("width", 25).transition() 
+      //   .attr("width", 0)
+      //   .remove();
 
 
-      }
+      // }
       
     }
   })()
-  exercise_2.render("#exercise2", {'width': 500, 'height': 1000});
-  exercise_2.update([{x:30, y:60}, {x:50, y:50}, {x:30, y:6}, {x:20, y:10}]);
+  exercise_2.render("#exercise2", {'width': 1000, 'height': 1000});
+  // exercise_2.update([{x:30, y:60}, {x:50, y:50}, {x:30, y:6}, {x:20, y:10}]);
   </script>
 </body>
 </html>
