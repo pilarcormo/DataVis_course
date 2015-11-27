@@ -73,7 +73,7 @@ var exercise_2 = (function () {
     },
 
     update: function update(data) {
-      var rect = groupCircles.selectAll("circle").data(data);
+      var rect = svg.selectAll("circle").data(data);
 
       rect.enter().append("circle")
       .style("fill", "blue")
@@ -82,21 +82,6 @@ var exercise_2 = (function () {
       .style("fill", "#F179D1").attr("r", 15)
       .transition('elastic')
       .style("fill", "lightblue")
-
-
-            //   var line = d3.svg.line().interpolate("linear") 
-      //   .x(function (d) {
-      //     return d.x;
-      //   })
-      //   .y(function (d) {
-      //     return d.y;
-      //   });
-
-
-
-
-
-
 
       rect.attr("cx", function(d) { return xScale(d.x); })
       .attr("cy", function(d) { return yScale(d.y); });
@@ -119,9 +104,6 @@ setInterval(function() {
   for (var i = 0; i < values; i++) {
     random_data.push({x: getRandomInt(16, 60), y: getRandomInt(16, 60)})
   }
-  // for (var i = 0; i < values; i++) {
-  //   random_data()
-  // }
 
 
   exercise_2.update(random_data);
