@@ -13,3 +13,17 @@
 </div>
 ```
 
+```
+python -m SimpleHTTPServer 8000
+```
+and 
+
+http://localhost:8000/D3/wheat.html
+
+
+To specify a integer/float from a string in the dataset, before the variable, we add a "+"
+
+```
+.attr('transform', function (d) { 
+	    		return "translate(" + x(+d.Date) + "," + y(+d.Percent) + ")";})
+```

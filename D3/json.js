@@ -2,6 +2,7 @@
 
 d3.json("https://raw.githubusercontent.com/eamonnmag/d3-biodatavis-course/master/assets/data/chocolate.json", function(data) {
 	var chocolates = data.chocolates;
+	console.log(data)
 
 	showScatterPlot(chocolates);
 
@@ -45,7 +46,9 @@ d3.json("https://raw.githubusercontent.com/eamonnmag/d3-biodatavis-course/master
 	    .attr("y", height )
 	    .text("Price in pence (£)");
 
-	    // now, we can get down to the data part, and drawing stuff. We are telling D3 that all nodes (g elements with class node) will have data attached to them. The 'key' we use (to let D3 know the uniqueness of items) will be the name. Not usually a great key, but fine for this example.
+	    // now, we can get down to the data part, and drawing stuff. We are telling D3 that all nodes (g elements with class node) will
+	    // have data attached to them. The 'key' we use (to let D3 know the uniqueness of items) will be the name. 
+	    //Not usually a great key, but fine for this example.
 	    var chocolate = svg.selectAll("g.node").data(data, function (d) {
 	    	return d.name;
 	    });
@@ -91,14 +94,6 @@ d3.json("https://raw.githubusercontent.com/eamonnmag/d3-biodatavis-course/master
     	// BRUSH
     	var brushed = function() {
     		var extent = brush.extent();
-    		/*d3.selectAll("chocolateGroup").select("circle").attr("r", function (d) {
-    			d.selected = (x(d.x) > x(extent[0][0]) && x(d.x) < x(extent[1][0])) && (y(d.y) < y(extent[0][1]) && y(d.y) > y(extent[1][1]));
-    				if(d.selected) {
-        				selected[d.name] = d;
-    				}
-    			return d.selected ? 2 : 1;
-    		});*/
-		
 			d3.selectAll(".node text")
     			.text(function (d) {
 	    			d.selected = (x(d.price) > x(extent[0][0]) && x(d.price) < x(extent[1][0])) && (y(d.rating) < y(extent[0][1]) && y(d.rating) > y(extent[1][1]));
